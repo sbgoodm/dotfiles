@@ -1,4 +1,5 @@
 syntax on
+colorscheme darkblue
 filetype on
 filetype plugin on
 set number
