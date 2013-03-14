@@ -1,5 +1,4 @@
 syntax on
-colorscheme darkblue
 filetype on
 filetype plugin on
 set number
@@ -15,11 +14,33 @@ if has('autocmd')
     autocmd filetype javascript setlocal shiftwidth=4 tabstop=4
 endif
 
+autocmd ColorScheme * highlight LineNr ctermfg=6 ctermbg=100
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+colorscheme darkblue
+function! <SID>StripTrailingWhitespace()
+    "  Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+nnoremap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
+
 " Next Tab
 nnoremap <silent> <C-S-Right> :tabnext<CR>
- 
+
 " Previous Tab
 nnoremap <silent> <C-S-Left> :tabprevious<CR>
- 
+
 " New Tab
 nnoremap <silent> <C-t> :tabnew<CR>
