@@ -14,14 +14,14 @@ if has('autocmd')
     autocmd filetype javascript setlocal shiftwidth=4 tabstop=4
 endif
 
-autocmd ColorScheme * highlight LineNr ctermfg=6 ctermbg=100
+autocmd ColorScheme * highlight LineNr ctermfg=White ctermbg=DarkGray
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-colorscheme darkblue
+colorscheme murphy
 function! <SID>StripTrailingWhitespace()
     "  Preparation: save last search, and cursor position.
     let _s=@/
